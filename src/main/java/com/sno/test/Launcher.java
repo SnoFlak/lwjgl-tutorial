@@ -1,19 +1,27 @@
 package com.sno.test;
 
 import com.sno.core.WindowManager;
+import com.sno.core.EngineManager;
+import com.sno.core.utils.Consts;
 import org.lwjgl.Version;
 
 public class Launcher {
 
-    public static void main(String[] args){
-        System.out.println(Version.getVersion());
-        WindowManager window = new WindowManager("SNOFLAK ENGINE", 0, 0, false);
-        window.init();
+    private static WindowManager window;
+    private static EngineManager engine;
 
-        while(!window.windowShouldClose()) {
-            window.update();
+    public static void main(String[] args){
+        window = new WindowManager(Consts.TITLE, 0, 0, false);
+        engine = new EngineManager();
+        try{
+            engine.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        window.cleanup();
+    }
+
+    public static WindowManager getWindow() {
+        return window;
     }
 }
